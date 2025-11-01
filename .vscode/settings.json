@@ -1,0 +1,13 @@
+{
+  // wybór interpretera dla tego workspace
+  "python.defaultInterpreterPath": ".venv/Scripts/python.exe",
+
+  // automatyczna aktywacja venv w terminalu VS Code
+  "python.terminal.activateEnvironment": true,
+
+  // (opcjonalnie) wczytuj zmienne z .env
+  "python.envFile": "${workspaceFolder}/.env"
+
+  // (opcjonalnie) wyłącz podpowiedzi z globalnego Pythona
+  // "python.analysis.extraPaths": []
+}

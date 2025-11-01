@@ -1,0 +1,9 @@
+"""
+Main/root agent exposing only local time and weather tools.
+
+Per requirement, MCP-backed math tools are not imported or registered here. A
+separate agent (`math_agent.py`) has exclusive access to the MCP math server
+and its tools.
+"""
+
+

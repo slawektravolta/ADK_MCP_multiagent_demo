@@ -45,5 +45,29 @@ def average(values: list[float]) -> float:
 def min_max(values: list[float]) -> dict:
     return {"min": min(values), "max": max(values)}
 
+_RESOURCE_STORE = {
+    "mem://kb/weather/tips": {"mime": "text/markdown", "content": "# Tips..."},
+    "mem://kb/weather/constants": {"mime": "application/json", "content": {"k": 273.15}},
+}
+_PROMPTS = {
+    "warn_heat": {"template": "Write a short heat warning for T={t}°C and RH={rh}%"}
+}
+
+@app.tool(description="List available resource URIs")
+def list_resources() -> list[str]:
+    return list(_RESOURCE_STORE.keys())
+
+@app.tool(description="Get resource by URI (returns {uri,mime,content})")
+def get_resource(uri: str) -> dict:
+    if uri not in _RESOURCE_STORE:
+        raise ValueError("Unknown resource")
+    return {"uri": uri, **_RESOURCE_STORE[uri]}
+
+@app.tool(description="Render a named prompt with args")
+def render_prompt(name: str, args: dict) -> str:
+    if name not in _PROMPTS:
+        raise ValueError("Unknown prompt")
+    return _PROMPTS[name]["template"].format(**args)
+
 if __name__ == "__main__":
     app.run()
